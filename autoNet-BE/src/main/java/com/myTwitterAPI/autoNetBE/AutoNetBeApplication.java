@@ -55,6 +55,7 @@ public class AutoNetBeApplication {
                                 .antMatchers(HttpMethod.GET, "/").permitAll()
                                 .antMatchers(HttpMethod.GET, "/getUsuario").permitAll()
                                 .antMatchers(HttpMethod.POST, "/nuevoUsuario").permitAll()
+                                .antMatchers(HttpMethod.POST, "/login").permitAll()
 				.anyRequest().authenticated();
 		}
         }

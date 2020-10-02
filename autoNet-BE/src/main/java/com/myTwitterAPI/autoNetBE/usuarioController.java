@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class usuarioController {
     @Autowired
     private usuarioRepositorio usuarioRepositorio;
-    
+
     @PostMapping("/nuevoUsuario")
     public String newUser(@RequestBody usuario body){
         usuarioRepositorio.save(body);
@@ -42,12 +42,37 @@ public class usuarioController {
     }
     @GetMapping("/getUsuario")
     public List<usuario> getUser(){
-        
-         List<usuario> usuario = new ArrayList<>();
-         usuarioRepositorio.findAll().forEach(usuario::add);
-         return usuario;
+        List<usuario> usuario = new ArrayList<>();
+        usuarioRepositorio.findAll().forEach(usuario::add);
+        return usuario;
     }
-
+    
+    @PostMapping("/login")
+    public String login(@RequestBody usuario body){
+        if(findMyUser(body.getEmail(), body.getPassword())){
+            String token = getJWTToken(body.getNombre());
+            body.setToken(token);
+        }
+        return body.getToken();
+    }
+    
+    @GetMapping("/testAuth")
+    public String testAuth(){
+        return "You have access";
+    }
+    
+    private boolean findMyUser(String email, String password){
+        List<usuario> usuarioList = new ArrayList<>();
+        usuarioRepositorio.findAll().forEach(usuarioList::add);
+        boolean result = false;
+        for(usuario us: usuarioList){
+            if(us.getEmail().equals(email) && us.getPassword().equals(password)){
+                result = true;
+            }
+        }
+        return result;
+    }
+    
     private String getJWTToken(String username) {
             String secretKey = "mySecretKey";
             List<GrantedAuthority> grantedAuthorities = AuthorityUtils
