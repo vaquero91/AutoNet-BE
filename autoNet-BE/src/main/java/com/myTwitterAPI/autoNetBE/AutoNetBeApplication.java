@@ -53,6 +53,8 @@ public class AutoNetBeApplication {
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
                                 .antMatchers(HttpMethod.GET, "/").permitAll()
+                                .antMatchers(HttpMethod.GET, "/getUsuario").permitAll()
+                                .antMatchers(HttpMethod.POST, "/nuevoUsuario").permitAll()
 				.anyRequest().authenticated();
 		}
         }
