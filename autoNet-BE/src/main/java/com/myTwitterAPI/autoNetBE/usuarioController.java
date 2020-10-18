@@ -48,12 +48,17 @@ public class usuarioController {
     }
     
     @PostMapping("/login")
-    public String login(@RequestBody usuario body){
+    public usuario login(@RequestBody usuario body){
+        String token = getJWTToken(body.getEmail());
+        usuario us = new usuario();
+        
         if(findMyUser(body.getEmail(), body.getPassword())){
-            String token = getJWTToken(body.getNombre());
-            body.setToken(token);
+            usuario val = getMyUsuario(body.email);
+            us.setToken(token);
+            us.setNombre(val.nombre);
         }
-        return body.getToken();
+        return us;
+
     }
     
     @GetMapping("/testAuth")
@@ -72,6 +77,11 @@ public class usuarioController {
         }
         return result;
     }
+    
+    private usuario getMyUsuario(String email){
+        return usuarioRepositorio.findByEmail(email);
+    }
+    
     
     private String getJWTToken(String username) {
             String secretKey = "mySecretKey";
