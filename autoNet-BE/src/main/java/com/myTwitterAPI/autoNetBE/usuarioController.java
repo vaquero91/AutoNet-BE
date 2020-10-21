@@ -35,10 +35,13 @@ public class usuarioController {
     private usuarioRepositorio usuarioRepositorio;
 
     @PostMapping("/nuevoUsuario")
-    public String newUser(@RequestBody usuario body){
+    public usuario newUser(@RequestBody usuario body){
+        String token = getJWTToken(body.getEmail());
         usuarioRepositorio.save(body);
-
-        return "Success";
+        body.setPassword("");
+        body.setToken(token);
+        
+        return body;
     }
     @GetMapping("/getUsuario")
     public List<usuario> getUser(){
