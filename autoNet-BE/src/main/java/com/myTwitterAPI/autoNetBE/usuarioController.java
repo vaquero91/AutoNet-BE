@@ -33,21 +33,59 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class usuarioController {
     @Autowired
     private usuarioRepositorio usuarioRepositorio;
-    
-    @PostMapping("/nuevoUsuario")
-    public String newUser(@RequestBody usuario body){
-        usuarioRepositorio.save(body);
 
-        return "Success";
+    @PostMapping("/nuevoUsuario")
+    public usuario newUser(@RequestBody usuario body){
+        String token = getJWTToken(body.getEmail());
+        usuarioRepositorio.save(body);
+        body.setPassword("");
+        body.setToken(token);
+        
+        return body;
     }
     @GetMapping("/getUsuario")
     public List<usuario> getUser(){
-        
-         List<usuario> usuario = new ArrayList<>();
-         usuarioRepositorio.findAll().forEach(usuario::add);
-         return usuario;
+        List<usuario> usuario = new ArrayList<>();
+        usuarioRepositorio.findAll().forEach(usuario::add);
+        return usuario;
     }
+    
+    @PostMapping("/login")
+    public usuario login(@RequestBody usuario body){
+        String token = getJWTToken(body.getEmail());
+        usuario us = new usuario();
+        
+        if(findMyUser(body.getEmail(), body.getPassword())){
+            usuario val = getMyUsuario(body.email);
+            us.setToken(token);
+            us.setNombre(val.nombre);
+        }
+        return us;
 
+    }
+    
+    @GetMapping("/testAuth")
+    public String testAuth(){
+        return "You have access";
+    }
+    
+    private boolean findMyUser(String email, String password){
+        List<usuario> usuarioList = new ArrayList<>();
+        usuarioRepositorio.findAll().forEach(usuarioList::add);
+        boolean result = false;
+        for(usuario us: usuarioList){
+            if(us.getEmail().equals(email) && us.getPassword().equals(password)){
+                result = true;
+            }
+        }
+        return result;
+    }
+    
+    private usuario getMyUsuario(String email){
+        return usuarioRepositorio.findByEmail(email);
+    }
+    
+    
     private String getJWTToken(String username) {
             String secretKey = "mySecretKey";
             List<GrantedAuthority> grantedAuthorities = AuthorityUtils

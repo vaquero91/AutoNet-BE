@@ -29,6 +29,13 @@ public class usuario {
     
     public usuario(){}
     
+    //Constructor para login
+    public usuario(String email, String password){
+        this.email = email;
+        this.password = password;
+    }
+    
+    // constructor para crear un usuario en la base de datos
     public usuario( String email, String password, String nombre){
         this.email = email;
         this.password = password;
