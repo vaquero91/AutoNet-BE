@@ -1,0 +1,4 @@
+language: java
+
+before_script: cd autoNet-BE
+script: mvn test -B
