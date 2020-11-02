@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 /**
  *
@@ -45,5 +46,8 @@ public class CuentaControllet {
         return cuentaRepositorio.findByUsuario(usuario);
     }
     
-            
+    @DeleteMapping("/deleteCuenta")
+    public void deleteCuenta(@RequestParam int cuentaId){
+        cuentaRepositorio.deleteById(cuentaId);
+    }
 }
