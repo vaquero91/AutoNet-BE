@@ -4,33 +4,37 @@
  * and open the template in the editor.
  */
 package com.myTwitterAPI.autoNetBE;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 /**
  *
  * @author juanh
  */
+@Entity
+@Table(name="cuentas")
 public class Cuenta {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int id;
+    
     String username;
+    int usuario;
     String red;
-    int followers;
-    int following;
     
     public Cuenta(){}
     
-    public Cuenta(String username, String red){
+    public Cuenta(String username, String red, int usuarioNum) {
+        this.usuario = usuarioNum;
         this.username = username;
         this.red = red;
     }
     
-    public void setFollowers(int followers){
-        this.followers = followers;
-    }
-    public int getFollowing(){
-        return this.followers;
-    }
-    public void setFollowing(int following){
-        this.following = following;
-    }    
     public String getUsername(){
         return this.username;
     }
@@ -42,5 +46,12 @@ public class Cuenta {
     }
     public void setRed(String red){
         this.red = red;
+    }
+    
+    public void setIdUsuario(int usuario){
+        this.usuario = usuario;
+    }
+    public int getIdUsuario(){
+        return this.usuario;
     }
 }
