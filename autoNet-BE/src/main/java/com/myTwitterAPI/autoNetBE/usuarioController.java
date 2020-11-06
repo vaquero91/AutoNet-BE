@@ -59,6 +59,7 @@ public class usuarioController {
             usuario val = getMyUsuario(body.email);
             us.setToken(token);
             us.setNombre(val.nombre);
+            us.setId(val.id);
         }
         return us;
 

@@ -41,7 +41,12 @@ public class usuario {
         this.password = password;
         this.nombre = nombre;
     }
-    
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
+    }
     public String getPassword() {
         return password;
     }
