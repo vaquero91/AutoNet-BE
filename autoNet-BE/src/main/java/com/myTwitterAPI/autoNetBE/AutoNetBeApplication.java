@@ -55,11 +55,8 @@ public class AutoNetBeApplication {
                                 .antMatchers(HttpMethod.GET, "/").permitAll()
                                 .antMatchers(HttpMethod.GET, "/getUsuario").permitAll()
                                 .antMatchers(HttpMethod.GET, "/getCuentas").permitAll()
-                                .antMatchers(HttpMethod.GET, "/CuentasUsuario").permitAll() // debe ser privada
                                 .antMatchers(HttpMethod.POST, "/nuevoUsuario").permitAll()
                                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                                .antMatchers(HttpMethod.POST, "/nuevaCuenta").permitAll() // debe ser privada
-                                .antMatchers(HttpMethod.DELETE, "/deleteCuenta").permitAll() // debe ser privada
 				.anyRequest().authenticated();
 		}
         }
