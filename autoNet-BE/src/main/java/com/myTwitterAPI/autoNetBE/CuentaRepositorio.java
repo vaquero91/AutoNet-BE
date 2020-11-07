@@ -5,14 +5,14 @@
  */
 package com.myTwitterAPI.autoNetBE;
 
-import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 /**
  *
  * @author juanh
  */
-@Repository
-public interface usuarioRepositorio extends  CrudRepository<usuario, Integer> {
-    usuario findByEmail(String email);
+public interface CuentaRepositorio  extends  CrudRepository<Cuenta, Integer>{
+    List<Cuenta> findByUsuario(int usuario);
 }
