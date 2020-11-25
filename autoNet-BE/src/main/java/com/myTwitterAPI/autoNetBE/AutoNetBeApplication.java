@@ -55,7 +55,7 @@ public class AutoNetBeApplication {
                                 .antMatchers(HttpMethod.GET, "/").permitAll()
                                 .antMatchers(HttpMethod.GET, "/getUsuario").permitAll()
                                 .antMatchers(HttpMethod.GET, "/getCuentas").permitAll()
-                                .antMatchers(HttpMethod.GET, "/defaultQuery").permitAll()
+                                // .antMatchers(HttpMethod.GET, "/defaultQuery").permitAll()
                                 .antMatchers(HttpMethod.GET, "/testTw").permitAll()
                                 .antMatchers(HttpMethod.POST, "/nuevoUsuario").permitAll()
                                 .antMatchers(HttpMethod.POST, "/login").permitAll()

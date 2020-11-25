@@ -29,7 +29,6 @@ public class TwitterController {
     
     @GetMapping("/defaultQuery")
     public List<Tweet> defaultQuery(@RequestParam String usuario) throws TwitterException, IOException{
-        
         tw.defaultQuery(usuario);
         return tw.returnTweets();
     }
